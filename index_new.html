@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snehaa 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Baloo 2', cursive;
+  background: linear-gradient(135deg,#ffd6ec,#ffc0e6,#ff99cc);
+  overflow:hidden;
+  color:#6a1b4d;
+}
+
+/* Slide Styling */
+.slide{
+  position:absolute;
+  width:100%;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:25px;
+  opacity:0;
+  transform:translateX(100%);
+  transition:all 0.7s ease;
+}
+
+.slide.active{
+  opacity:1;
+  transform:translateX(0);
+}
+
+/* Headings */
+h1{
+  font-family:'Pacifico', cursive;
+  font-size:34px;
+  margin-bottom:15px;
+  text-shadow:0 0 15px #ff69b4;
+}
+
+/* Paragraphs */
+p{
+  font-size:18px;
+  max-width:90%;
+  line-height:1.7;
+  opacity:0;
+  animation:fadeIn 1.5s forwards;
+  animation-delay:0.5s;
+}
+
+@keyframes fadeIn{
+  to{opacity:1;}
+}
+
+/* Images */
+img{
+  width:80%;
+  max-width:280px;
+  border-radius:20px;
+  margin:15px 0;
+  box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Buttons */
+button{
+  margin-top:25px;
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  background:#ff1493;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.1);
+}
+
+/* Floating Hearts */
+.heart{
+  position:fixed;
+  font-size:18px;
+  animation:float 7s linear infinite;
+  opacity:0.6;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
+}
+
+/* Responsive */
+@media(max-width:480px){
+  h1{font-size:28px;}
+  p{font-size:16px;}
+  img{max-width:220px;}
+  button{padding:10px 25px;font-size:15px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Slide 1 -->
+<div class="slide active" id="slide1">
+  <h1>Happy Birthday Snehaa 🎂💖</h1>
+  <p>A magical little world made just for you ✨</p>
+  <button onclick="nextSlide()">Enter 💌</button>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide" id="slide2">
+  <h1>Little Star 🌟</h1>
+  <img src="https://i.ibb.co/xq9BQpQm/IMG-20260201-233308-073.jpg" alt="Childhood Photo">
+  <p>Even as a child, your smile had its own sparkle 💫</p>
+  <button onclick="nextSlide()">Next ➜</button>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide" id="slide3">
+  <h1>Beautiful Soul ✨</h1>
+  <img src="https://i.ibb.co/qYt8VrCr/Screenshot-20260201-231027-Instagram.jpg" alt="Adulthood Photo">
+  <p>Growing into someone graceful, strong, and inspiring 🌸</p>
+  <button onclick="nextSlide()">Final Message 💖</button>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide" id="slide4">
+  <h1>Just For You 🤍</h1>
+  <p>From childhood memories to today and a totel 3 years with mee... your journey is something truly beautiful.</p>
+  <p>May this year bring happiness, success, and endless smiles.</p>
+  <h1>Always Special ✨</h1>
+  <button onclick="restart()">Replay 🔁</button>
+</div>
+
+<script>
+let current=1;
+const total=4;
+
+function nextSlide(){
+  if(current<total){
+    document.getElementById("slide"+current).classList.remove("active");
+    current++;
+    document.getElementById("slide"+current).classList.add("active");
+  }
+}
+
+function restart(){
+  document.getElementById("slide"+current).classList.remove("active");
+  current=1;
+  document.getElementById("slide1").classList.add("active");
+}
+
+/* Swipe support */
+let startX=0;
+document.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
+document.addEventListener("touchend",e=>{
+  let endX=e.changedTouches[0].clientX;
+  if(startX-endX>50) nextSlide();
+});
+
+/* Floating hearts */
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML="💖";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(Math.random()*4+3)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),7000);
+},900);
+</script>
+
+</body>
+</html>
