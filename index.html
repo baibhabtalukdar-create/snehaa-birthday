@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Snehaa ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:"Satoshi",sans-serif;
+  background:#0c0a09;
+  color:white;
+}
+
+/* Aurora */
+.aurora{
+  position:fixed;
+  inset:0;
+  z-index:-4;
+  background:
+    radial-gradient(circle at 20% 20%, hsla(333,70%,55%,.4), transparent 60%),
+    radial-gradient(circle at 80% 30%, hsla(282,82%,54%,.3), transparent 60%),
+    radial-gradient(circle at 50% 80%, hsla(210,89%,60%,.3), transparent 60%);
+  animation:auroraFlow 12s infinite alternate ease-in-out;
+}
+@keyframes auroraFlow{
+  0%{filter:blur(80px);transform:scale(1);}
+  100%{filter:blur(130px);transform:scale(1.3);}
+}
+
+/* Floating Hearts */
+.heart{
+  position:fixed;
+  font-size:18px;
+  opacity:0.6;
+  animation:floatUp linear infinite;
+  z-index:-3;
+}
+@keyframes floatUp{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* Cards */
+.card{
+  background:rgba(15,15,20,0.55);
+  border:1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(25px);
+  border-radius:28px;
+  padding:2.5rem;
+  max-width:580px;
+  width:90%;
+  position:absolute;
+  left:50%;
+  top:55%;
+  transform:translate(-50%,-50%);
+  display:none;
+  text-align:center;
+}
+
+/* Glowing Name */
+.glowText{
+  font-family:"Playfair Display",serif;
+  font-size:2.8rem;
+  background:linear-gradient(90deg,#ff4d6d,#ffffff,#ff4d6d);
+  background-size:200%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:glowMove 3s infinite linear;
+}
+@keyframes glowMove{
+  0%{background-position:0%}
+  100%{background-position:200%}
+}
+
+.btn{
+  margin-top:1.5rem;
+  padding:0.8rem 2rem;
+  border-radius:999px;
+  font-weight:bold;
+  background:linear-gradient(to right,#ff3d77,#ff003c);
+  box-shadow:0 0 20px rgba(255,0,100,0.6);
+  transition:0.3s;
+}
+.btn:hover{transform:scale(1.1);}
+
+canvas#threeHeart{
+  position:fixed;
+  top:20%;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:-2;
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_91c9c07e3b.mp3">
+</audio>
+
+<div class="aurora"></div>
+<canvas id="threeHeart"></canvas>
+
+<!-- Steps -->
+
+<div class="card" id="step1">
+<div class="glowText">Snehaa ❤️</div>
+<p class="mt-4">This universe lights up because you exist.</p>
+<button class="btn" onclick="nextStep(1)">Begin</button>
+</div>
+
+<div class="card" id="step2">
+<div class="glowText">Happy Birthday 🎉</div>
+<p class="mt-4">You deserve magic every single day.</p>
+<button class="btn" onclick="nextStep(2)">Memories</button>
+</div>
+
+<div class="card" id="step3">
+<div class="glowText">Then & Now ✨</div>
+
+<div class="mt-6">
+<img src="https://i.ibb.co/qYt8VrCr/Screenshot-20260201-231027-Instagram.jpg" style="border-radius:20px;width:250px;">
+</div>
+
+<div class="mt-6">
+<img src="https://i.ibb.co/xq9BQpQm/IMG-20260201-233308-073.jpg" style="border-radius:20px;width:250px;">
+</div>
+
+<button class="btn" onclick="nextStep(3)">Finale</button>
+</div>
+
+<div class="card" id="step4">
+<div class="glowText">Celebrate Snehaa ❤️</div>
+<p class="mt-4">May your year shine brighter than stars.</p>
+<button class="btn" onclick="celebrate()">Celebrate 🎂</button>
+</div>
+
+<script>
+let current=1;
+function showStep(step){
+document.querySelectorAll(".card").forEach(c=>c.style.display="none");
+let el=document.getElementById("step"+step);
+el.style.display="block";
+gsap.fromTo(el,{opacity:0,y:60},{opacity:1,y:0,duration:1});
+}
+function nextStep(step){
+gsap.to("#step"+step,{opacity:0,duration:0.5,onComplete:()=>{current++;showStep(current);}});
+}
+showStep(1);
+
+/* Floating Hearts */
+for(let i=0;i<30;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=5+Math.random()*10+"s";
+document.body.appendChild(h);
+}
+
+/* Click Burst */
+document.addEventListener("click",(e)=>{
+confetti({
+particleCount:25,
+spread:70,
+origin:{x:e.clientX/window.innerWidth,y:e.clientY/window.innerHeight},
+emojis:["❤️","💖","✨"]
+});
+});
+
+/* Fireworks */
+function celebrate(){
+let end=Date.now()+7000;
+(function frame(){
+confetti({
+particleCount:10,
+spread:120,
+origin:{x:Math.random(),y:Math.random()/2},
+colors:['#ff0a54','#ff477e','#ff7096','#ff85a1']
+});
+if(Date.now()<end) requestAnimationFrame(frame);
+})();
+}
+
+/* 3D Heart */
+const canvas=document.getElementById("threeHeart");
+const renderer=new THREE.WebGLRenderer({canvas,alpha:true});
+renderer.setSize(window.innerWidth,300);
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(75,window.innerWidth/300,0.1,1000);
+camera.position.z=3;
+
+const geometry=new THREE.TorusKnotGeometry(1,0.3,100,16);
+const material=new THREE.MeshStandardMaterial({color:0xff2e63,metalness:0.6,roughness:0.2});
+const heart=new THREE.Mesh(geometry,material);
+scene.add(heart);
+
+const light=new THREE.PointLight(0xffffff,1);
+light.position.set(5,5,5);
+scene.add(light);
+
+function animate(){
+requestAnimationFrame(animate);
+heart.rotation.x+=0.01;
+heart.rotation.y+=0.01;
+renderer.render(scene,camera);
+}
+animate();
+</script>
+
+</body>
+</html>
