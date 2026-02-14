@@ -1,246 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Snehaa ❤️</title>
+<title>Snehaa 💖</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
-<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,600&display=swap" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
+  font-family:'Baloo 2', cursive;
+  background: linear-gradient(135deg,#ffb6d9,#ffcce6,#ffe6f2);
   overflow:hidden;
-  font-family:"Satoshi",sans-serif;
-  background:#0c0a09;
+  text-align:center;
+  color:#6b2d5c;
+}
+
+.slide{
+  position:absolute;
+  width:100%;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:25px;
+  transition:0.6s ease;
+}
+
+.hidden{
+  transform:translateX(100%);
+}
+
+h1{
+  font-family:'Pacifico', cursive;
+  font-size:36px;
+  margin-bottom:10px;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{ text-shadow:0 0 5px #ff66b2; }
+  to{ text-shadow:0 0 20px #ff1493; }
+}
+
+p{
+  font-size:18px;
+  max-width:90%;
+  line-height:1.7;
+}
+
+img{
+  width:80%;
+  max-width:280px;
+  border-radius:20px;
+  margin:15px 0;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+button{
+  margin-top:20px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:#ff4da6;
   color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-/* Aurora */
-.aurora{
-  position:fixed;
-  inset:0;
-  z-index:-4;
-  background:
-    radial-gradient(circle at 20% 20%, hsla(333,70%,55%,.4), transparent 60%),
-    radial-gradient(circle at 80% 30%, hsla(282,82%,54%,.3), transparent 60%),
-    radial-gradient(circle at 50% 80%, hsla(210,89%,60%,.3), transparent 60%);
-  animation:auroraFlow 12s infinite alternate ease-in-out;
-}
-@keyframes auroraFlow{
-  0%{filter:blur(80px);transform:scale(1);}
-  100%{filter:blur(130px);transform:scale(1.3);}
+button:hover{
+  transform:scale(1.1);
 }
 
-/* Floating Hearts */
 .heart{
   position:fixed;
   font-size:18px;
+  animation:float 6s linear infinite;
   opacity:0.6;
-  animation:floatUp linear infinite;
-  z-index:-3;
-}
-@keyframes floatUp{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
 }
 
-/* Cards */
-.card{
-  background:rgba(15,15,20,0.55);
-  border:1px solid rgba(255,255,255,0.15);
-  backdrop-filter:blur(25px);
-  border-radius:28px;
-  padding:2.5rem;
-  max-width:580px;
-  width:90%;
-  position:absolute;
-  left:50%;
-  top:55%;
-  transform:translate(-50%,-50%);
-  display:none;
-  text-align:center;
-}
-
-/* Glowing Name */
-.glowText{
-  font-family:"Playfair Display",serif;
-  font-size:2.8rem;
-  background:linear-gradient(90deg,#ff4d6d,#ffffff,#ff4d6d);
-  background-size:200%;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:glowMove 3s infinite linear;
-}
-@keyframes glowMove{
-  0%{background-position:0%}
-  100%{background-position:200%}
-}
-
-.btn{
-  margin-top:1.5rem;
-  padding:0.8rem 2rem;
-  border-radius:999px;
-  font-weight:bold;
-  background:linear-gradient(to right,#ff3d77,#ff003c);
-  box-shadow:0 0 20px rgba(255,0,100,0.6);
-  transition:0.3s;
-}
-.btn:hover{transform:scale(1.1);}
-
-canvas#threeHeart{
-  position:fixed;
-  top:20%;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:-2;
+@keyframes float{
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
 }
 </style>
 </head>
 
 <body>
 
+<!-- MUSIC -->
 <audio autoplay loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_91c9c07e3b.mp3">
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
 
-<div class="aurora"></div>
-<canvas id="threeHeart"></canvas>
-
-<!-- Steps -->
-
-<div class="card" id="step1">
-<div class="glowText">Snehaa ❤️</div>
-<p class="mt-4">This universe lights up because you exist.</p>
-<button class="btn" onclick="nextStep(1)">Begin</button>
+<!-- SLIDE 1 -->
+<div class="slide" id="slide1">
+  <h1>Happy Birthday Snehaa 🎂💖</h1>
+  <p>A little magical surprise made just for you ✨</p>
+  <button onclick="nextSlide()">Tap To Begin 💌</button>
 </div>
 
-<div class="card" id="step2">
-<div class="glowText">Happy Birthday 🎉</div>
-<p class="mt-4">You deserve magic every single day.</p>
-<button class="btn" onclick="nextStep(2)">Memories</button>
+<!-- SLIDE 2 -->
+<div class="slide hidden" id="slide2">
+  <h1>Little Star 🌟</h1>
+  <img src="https://i.ibb.co/xq9BQpQm/IMG-20260201-233308-073.jpg">
+  <p>Such an innocent smile,
+  already shining bright from childhood 💫</p>
 </div>
 
-<div class="card" id="step3">
-<div class="glowText">Then & Now ✨</div>
-
-<div class="mt-6">
-<img src="https://i.ibb.co/qYt8VrCr/Screenshot-20260201-231027-Instagram.jpg" style="border-radius:20px;width:250px;">
+<!-- SLIDE 3 -->
+<div class="slide hidden" id="slide3">
+  <h1>Beautiful Soul ✨</h1>
+  <img src="https://i.ibb.co/qYt8VrCr/Screenshot-20260201-231027-Instagram.jpg">
+  <p>Growing into someone even more graceful,
+  confident and inspiring every year 🌸</p>
 </div>
 
-<div class="mt-6">
-<img src="https://i.ibb.co/xq9BQpQm/IMG-20260201-233308-073.jpg" style="border-radius:20px;width:250px;">
-</div>
-
-<button class="btn" onclick="nextStep(3)">Finale</button>
-</div>
-
-<div class="card" id="step4">
-<div class="glowText">Celebrate Snehaa ❤️</div>
-<p class="mt-4">May your year shine brighter than stars.</p>
-<button class="btn" onclick="celebrate()">Celebrate 🎂</button>
+<!-- SLIDE 4 -->
+<div class="slide hidden" id="slide4">
+  <h1>Just For You 🤍</h1>
+  <p>
+  From childhood memories to today, 3 years together 
+  your journey is something truly beautiful.
+  </p>
+  <p>
+  May this year bring happiness,
+  success and endless smiles.
+  </p>
+  <h1>Always Special ✨</h1>
 </div>
 
 <script>
 let current=1;
-function showStep(step){
-document.querySelectorAll(".card").forEach(c=>c.style.display="none");
-let el=document.getElementById("step"+step);
-el.style.display="block";
-gsap.fromTo(el,{opacity:0,y:60},{opacity:1,y:0,duration:1});
-}
-function nextStep(step){
-gsap.to("#step"+step,{opacity:0,duration:0.5,onComplete:()=>{current++;showStep(current);}});
-}
-showStep(1);
-
-/* Floating Hearts */
-for(let i=0;i<30;i++){
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="❤️";
-h.style.left=Math.random()*100+"vw";
-h.style.animationDuration=5+Math.random()*10+"s";
-document.body.appendChild(h);
+function nextSlide(){
+  document.getElementById("slide"+current).classList.add("hidden");
+  current++;
+  if(current<=4){
+    document.getElementById("slide"+current).classList.remove("hidden");
+  }
 }
 
-/* Click Burst */
-document.addEventListener("click",(e)=>{
-confetti({
-particleCount:25,
-spread:70,
-origin:{x:e.clientX/window.innerWidth,y:e.clientY/window.innerHeight},
-emojis:["❤️","💖","✨"]
+// Swipe support
+let startX=0;
+document.addEventListener("touchstart",e=>{
+  startX=e.touches[0].clientX;
 });
+document.addEventListener("touchend",e=>{
+  let endX=e.changedTouches[0].clientX;
+  if(startX-endX>50){
+    nextSlide();
+  }
 });
 
-/* Fireworks */
-function celebrate(){
-let end=Date.now()+7000;
-(function frame(){
-confetti({
-particleCount:10,
-spread:120,
-origin:{x:Math.random(),y:Math.random()/2},
-colors:['#ff0a54','#ff477e','#ff7096','#ff85a1']
-});
-if(Date.now()<end) requestAnimationFrame(frame);
-})();
-}
-
-/* 3D Heart */
-const canvas=document.getElementById("threeHeart");
-const renderer=new THREE.WebGLRenderer({canvas,alpha:true});
-renderer.setSize(window.innerWidth,300);
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(75,window.innerWidth/300,0.1,1000);
-camera.position.z=3;
-
-const geometry=new THREE.TorusKnotGeometry(1,0.3,100,16);
-const material=new THREE.MeshStandardMaterial({color:0xff2e63,metalness:0.6,roughness:0.2});
-const heart=new THREE.Mesh(geometry,material);
-scene.add(heart);
-
-const light=new THREE.PointLight(0xffffff,1);
-light.position.set(5,5,5);
-scene.add(light);
-
-function animate(){
-requestAnimationFrame(animate);
-heart.rotation.x+=0.01;
-heart.rotation.y+=0.01;
-renderer.render(scene,camera);
-}
-animate();
+// floating hearts
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML="💖";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(Math.random()*4+3)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),7000);
+},900);
 </script>
-<section style="max-width: 800px; margin: 80px auto; text-align: center; padding: 20px;">
-  <h2 style="font-size: 32px; margin-bottom: 20px;">A Little Something For You 🤍</h2>
-  
-  <p style="font-size: 18px; line-height: 1.8; opacity: 0.9;">
-    From childhood smiles to the amazing person you are today,
-    watching your journey through pictures ans 3 years of experience makes everything feel so special.
-  </p>
 
-  <p style="font-size: 18px; line-height: 1.8; opacity: 0.9; margin-top: 20px;">
-    You’ve grown, you’ve changed, but one thing stayed constant —
-    your beautiful heart and the light you carry everywhere.
-  </p>
-
-  <p style="font-size: 18px; line-height: 1.8; opacity: 0.9; margin-top: 20px;">
-    I just hope this small website reminds you how valued,
-    appreciated, and special you truly are.
-  </p>
-
-  <h3 style="margin-top: 40px; font-size: 24px;">
-    Happy Birthday Snehaa 🎂✨
-  </h3>
-</section>
-  
 </body>
 </html>
