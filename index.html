@@ -9,13 +9,13 @@
 <style>
 body{
   margin:0;
-  font-family:'Baloo 2', cursive;
-  background: linear-gradient(135deg,#ffb6d9,#ffcce6,#ffe6f2);
   overflow:hidden;
-  text-align:center;
-  color:#6b2d5c;
+  font-family:'Baloo 2', cursive;
+  background: radial-gradient(circle at top,#ffd6ec,#ffb3d9,#ff99cc);
+  color:#6a1b4d;
 }
 
+/* Slides */
 .slide{
   position:absolute;
   width:100%;
@@ -24,46 +24,61 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  text-align:center;
   padding:25px;
-  transition:0.6s ease;
+  opacity:0;
+  transform:scale(1.1);
+  transition:all 0.7s ease;
 }
 
-.hidden{
-  transform:translateX(100%);
+.slide.active{
+  opacity:1;
+  transform:scale(1);
 }
 
+/* Bubble Heading */
 h1{
   font-family:'Pacifico', cursive;
   font-size:36px;
-  margin-bottom:10px;
+  margin-bottom:15px;
   animation:glow 2s infinite alternate;
 }
 
 @keyframes glow{
-  from{ text-shadow:0 0 5px #ff66b2; }
-  to{ text-shadow:0 0 20px #ff1493; }
+  from{ text-shadow:0 0 10px #ff66b2; }
+  to{ text-shadow:0 0 25px #ff1493; }
 }
 
+/* Paragraph */
 p{
   font-size:18px;
   max-width:90%;
   line-height:1.7;
+  opacity:0;
+  animation:fadeIn 2s forwards;
+  animation-delay:0.5s;
 }
 
+@keyframes fadeIn{
+  to{ opacity:1; }
+}
+
+/* Images */
 img{
   width:80%;
   max-width:280px;
   border-radius:20px;
   margin:15px 0;
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  box-shadow:0 15px 30px rgba(0,0,0,0.2);
 }
 
+/* Button */
 button{
-  margin-top:20px;
+  margin-top:25px;
   padding:12px 30px;
   border:none;
   border-radius:30px;
-  background:#ff4da6;
+  background:#ff1493;
   color:white;
   font-size:16px;
   cursor:pointer;
@@ -74,11 +89,12 @@ button:hover{
   transform:scale(1.1);
 }
 
+/* Floating Hearts */
 .heart{
   position:fixed;
   font-size:18px;
-  animation:float 6s linear infinite;
-  opacity:0.6;
+  animation:float 7s linear infinite;
+  opacity:0.5;
 }
 
 @keyframes float{
@@ -90,39 +106,34 @@ button:hover{
 
 <body>
 
-<!-- MUSIC -->
-<audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-</audio>
-
 <!-- SLIDE 1 -->
-<div class="slide" id="slide1">
+<div class="slide active" id="slide1">
   <h1>Happy Birthday Snehaa 🎂💖</h1>
-  <p>A little magical surprise made just for you ✨</p>
-  <button onclick="nextSlide()">Tap To Begin 💌</button>
+  <p>A magical little world made just for you ✨</p>
+  <button onclick="nextSlide()">Enter 💌</button>
 </div>
 
 <!-- SLIDE 2 -->
-<div class="slide hidden" id="slide2">
+<div class="slide" id="slide2">
   <h1>Little Star 🌟</h1>
   <img src="https://i.ibb.co/xq9BQpQm/IMG-20260201-233308-073.jpg">
-  <p>Such an innocent smile,
-  already shining bright from childhood 💫</p>
+  <p>Even as a child, your smile had its own sparkle 💫</p>
+  <button onclick="nextSlide()">Next ➜</button>
 </div>
 
 <!-- SLIDE 3 -->
-<div class="slide hidden" id="slide3">
+<div class="slide" id="slide3">
   <h1>Beautiful Soul ✨</h1>
   <img src="https://i.ibb.co/qYt8VrCr/Screenshot-20260201-231027-Instagram.jpg">
-  <p>Growing into someone even more graceful,
-  confident and inspiring every year 🌸</p>
+  <p>Growing into someone graceful, strong and inspiring 🌸</p>
+  <button onclick="nextSlide()">Final Message 💖</button>
 </div>
 
 <!-- SLIDE 4 -->
-<div class="slide hidden" id="slide4">
+<div class="slide" id="slide4">
   <h1>Just For You 🤍</h1>
   <p>
-  From childhood memories to today, 3 years together 
+  From childhood memories to today,3 years together 
   your journey is something truly beautiful.
   </p>
   <p>
@@ -130,19 +141,28 @@ button:hover{
   success and endless smiles.
   </p>
   <h1>Always Special ✨</h1>
+  <button onclick="restart()">Replay 🔁</button>
 </div>
 
 <script>
 let current=1;
+const total=4;
+
 function nextSlide(){
-  document.getElementById("slide"+current).classList.add("hidden");
-  current++;
-  if(current<=4){
-    document.getElementById("slide"+current).classList.remove("hidden");
+  if(current<total){
+    document.getElementById("slide"+current).classList.remove("active");
+    current++;
+    document.getElementById("slide"+current).classList.add("active");
   }
 }
 
-// Swipe support
+function restart(){
+  document.getElementById("slide"+current).classList.remove("active");
+  current=1;
+  document.getElementById("slide1").classList.add("active");
+}
+
+/* Swipe Support */
 let startX=0;
 document.addEventListener("touchstart",e=>{
   startX=e.touches[0].clientX;
@@ -154,7 +174,7 @@ document.addEventListener("touchend",e=>{
   }
 });
 
-// floating hearts
+/* Floating Hearts */
 setInterval(()=>{
   const heart=document.createElement("div");
   heart.classList.add("heart");
